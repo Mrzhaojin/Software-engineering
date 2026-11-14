@@ -16,7 +16,7 @@
 ## 快速开始
 
 - 实验一：[`24计科2班_242806010214_StudyTask/README.md`](24计科2班_242806010214_StudyTask/README.md)
-  初版已实现（Flask + SQLite，20 条 pytest 测试通过），启动与测试命令见项目 README；T1–T10 人工验收已完成（10/10 通过）。
+  初版已实现（Flask + SQLite，20 条 pytest 测试通过），启动与测试命令见项目 README；T1–T10 人工验收已完成（10/10 通过），实验报告与演示 PPT 已交付。
 
 ## 通用规范（摘自实验指导书）
 
