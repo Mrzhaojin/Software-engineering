@@ -3,6 +3,7 @@
 技术边界：Python + Flask + SQLite，单用户本地运行。
 """
 import os
+import re
 import sqlite3
 from datetime import date, datetime, timedelta
 
@@ -12,6 +13,10 @@ STATUSES = ["待完成", "进行中", "已完成"]
 PRIORITIES = ["高", "中", "低"]
 DATE_FORMAT = "%Y-%m-%d"
 SOON_DAYS = 3
+
+# 单行字段（名称、课程）不允许换行/制表等控制字符；描述允许多行。
+INVALID_SINGLE_LINE = re.compile(r"[\x00-\x1f\x7f]")
+INVALID_DESCRIPTION = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
 
 
 def get_db():
@@ -74,8 +79,14 @@ def validate_task(form):
         errors.append("所属课程不能为空。")
     elif len(data["course"]) > 60:
         errors.append("所属课程不能超过 60 字。")
+    if INVALID_SINGLE_LINE.search(data["name"]):
+        errors.append("任务名称包含换行或控制字符。")
+    if INVALID_SINGLE_LINE.search(data["course"]):
+        errors.append("所属课程包含换行或控制字符。")
     if len(data["description"]) > 1000:
         errors.append("任务描述不能超过 1000 字。")
+    if INVALID_DESCRIPTION.search(data["description"]):
+        errors.append("任务描述包含非法控制字符。")
     if not data["due_date"]:
         errors.append("截止日期不能为空。")
     else:
@@ -165,6 +176,23 @@ def create_app(test_config=None):
     def new_task():
         if request.method == "POST":
             data, errors = validate_task(request.form)
+            db = get_db()
+            if not errors:
+                duplicate = db.execute(
+                    "SELECT id FROM tasks WHERE name = ? AND course = ? "
+                    "AND description = ? AND due_date = ? AND priority = ? LIMIT 1",
+                    (
+                        data["name"],
+                        data["course"],
+                        data["description"],
+                        data["due_date"],
+                        data["priority"],
+                    ),
+                ).fetchone()
+                if duplicate is not None:
+                    errors.append(
+                        f"已存在完全相同的任务（编号 {duplicate['id']}），请勿重复创建。"
+                    )
             if errors:
                 return render_template(
                     "form.html",
@@ -176,7 +204,6 @@ def create_app(test_config=None):
                     priorities=PRIORITIES,
                     show_status=False,
                 )
-            db = get_db()
             now = _now()
             cur = db.execute(
                 "INSERT INTO tasks "

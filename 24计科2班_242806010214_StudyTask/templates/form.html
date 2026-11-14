@@ -11,16 +11,16 @@
 
 <form class="task-form" method="post" action="{{ form_action }}">
   <div class="field">
-    <label for="name">任务名称 <span class="req">*</span></label>
-    <input id="name" name="name" type="text" maxlength="100" required value="{{ task.name }}">
+    <label for="name">任务名称 <span class="req">*</span><span class="counter" data-counter="name" data-limit="100">0 / 100</span></label>
+    <input id="name" name="name" type="text" required value="{{ task.name }}">
   </div>
   <div class="field">
-    <label for="course">所属课程 <span class="req">*</span></label>
-    <input id="course" name="course" type="text" maxlength="60" required value="{{ task.course }}">
+    <label for="course">所属课程 <span class="req">*</span><span class="counter" data-counter="course" data-limit="60">0 / 60</span></label>
+    <input id="course" name="course" type="text" required value="{{ task.course }}">
   </div>
   <div class="field">
-    <label for="description">任务描述</label>
-    <textarea id="description" name="description" rows="4" maxlength="1000">{{ task.description }}</textarea>
+    <label for="description">任务描述<span class="counter" data-counter="description" data-limit="1000">0 / 1000</span></label>
+    <textarea id="description" name="description" rows="4">{{ task.description }}</textarea>
   </div>
   <div class="field">
     <label for="due_date">截止日期 <span class="req">*</span></label>
@@ -49,4 +49,32 @@
     <a class="btn btn-plain" href="{{ url_for('index') }}">取消</a>
   </div>
 </form>
+
+<script>
+(function () {
+  document.querySelectorAll("[data-counter]").forEach(function (badge) {
+    var field = document.getElementById(badge.getAttribute("data-counter"));
+    if (!field) return;
+    var limit = parseInt(badge.getAttribute("data-limit"), 10);
+    function update() {
+      var length = field.value.length;
+      badge.textContent = length + " / " + limit;
+      badge.classList.toggle("over", length > limit);
+    }
+    field.addEventListener("input", update);
+    update();
+  });
+
+  var form = document.querySelector(".task-form");
+  if (form) {
+    form.addEventListener("submit", function () {
+      var button = form.querySelector('button[type="submit"]');
+      if (button) {
+        button.disabled = true;
+        button.textContent = "保存中…";
+      }
+    });
+  }
+})();
+</script>
 {% endblock %}

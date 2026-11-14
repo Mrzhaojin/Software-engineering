@@ -125,6 +125,7 @@ select:focus, input:focus, textarea:focus {
 
 .task-table {
   width: 100%;
+  table-layout: fixed;
   border-collapse: collapse;
   background: var(--card);
   border: 1px solid var(--line);
@@ -140,6 +141,22 @@ select:focus, input:focus, textarea:focus {
 }
 
 .task-table th { background: #f8fafc; color: var(--muted); font-weight: 600; }
+
+/* 长文本在单元格内自动换行，避免撑破表格、溢出或挤压布局 */
+.task-table th,
+.task-table td {
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  vertical-align: top;
+}
+
+.task-table th:nth-child(1), .task-table td:nth-child(1) { width: 26%; }
+.task-table th:nth-child(2), .task-table td:nth-child(2) { width: 15%; }
+.task-table th:nth-child(3), .task-table td:nth-child(3) { width: 13%; }
+.task-table th:nth-child(4), .task-table td:nth-child(4) { width: 9%; }
+.task-table th:nth-child(5), .task-table td:nth-child(5) { width: 10%; }
+.task-table th:nth-child(6), .task-table td:nth-child(6) { width: 15%; }
+.task-table th:nth-child(7), .task-table td:nth-child(7) { width: 12%; }
 .task-table tr:last-child td { border-bottom: none; }
 .task-table a { color: var(--primary); text-decoration: none; }
 .task-table a:hover { text-decoration: underline; }
@@ -176,7 +193,15 @@ select:focus, input:focus, textarea:focus {
 }
 
 .detail dt { color: var(--muted); }
-.detail dd { margin: 0; }
+
+.detail dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.page-head { flex-wrap: wrap; }
+.page-head h1 { overflow-wrap: anywhere; min-width: 0; }
 
 .task-form {
   background: var(--card);
@@ -190,7 +215,22 @@ select:focus, input:focus, textarea:focus {
 }
 
 .field { display: flex; flex-direction: column; gap: 6px; }
-.field label { font-size: 14px; color: var(--muted); }
+.field label {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.counter {
+  margin-left: auto;
+  font-size: 12px;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.counter.over { color: var(--danger); font-weight: 600; }
 .field input, .field textarea, .field select { width: 100%; }
 .req { color: var(--danger); }
 

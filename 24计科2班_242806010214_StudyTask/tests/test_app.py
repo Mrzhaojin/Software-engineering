@@ -242,3 +242,31 @@ def test_flag_logic():
     assert task_flag(task("待完成", "2026-11-16"), today) == "soon"
     assert task_flag(task("待完成", "2026-11-17"), today) is None
     assert task_flag(task("已完成", "2026-11-01"), today) is None
+
+
+def test_duplicate_exact_task_rejected(app, client):
+    assert make_task(client, name="重复任务").status_code == 302
+    second = make_task(client, name="重复任务")
+    assert second.status_code == 200
+    assert "已存在完全相同的任务" in second.get_data(as_text=True)
+    assert count_tasks(app) == 1
+
+
+def test_duplicate_with_different_field_allowed(app, client):
+    assert make_task(client, name="同名任务", description="描述一").status_code == 302
+    assert make_task(client, name="同名任务", description="描述二").status_code == 302
+    assert count_tasks(app) == 2
+
+
+def test_control_characters_rejected(app, client):
+    assert "包含换行或控制字符" in make_task(client, name="任务\n名称").get_data(as_text=True)
+    assert "包含换行或控制字符" in make_task(client, course="课程\t名称").get_data(as_text=True)
+    assert count_tasks(app) == 0
+
+
+def test_multiline_description_allowed(client):
+    assert make_task(client, description="第一行\n第二行").status_code == 302
+
+
+def test_max_length_values_accepted(client):
+    assert make_task(client, name="名" * 100, course="课" * 60).status_code == 302
