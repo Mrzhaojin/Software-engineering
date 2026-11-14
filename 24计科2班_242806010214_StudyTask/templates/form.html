@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}{{ form_title }}{% endblock %}
+{% block content %}
+<h1>{{ form_title }}</h1>
+
+{% if errors %}
+<ul class="errors">
+  {% for e in errors %}<li>{{ e }}</li>{% endfor %}
+</ul>
+{% endif %}
+
+<form class="task-form" method="post" action="{{ form_action }}">
+  <div class="field">
+    <label for="name">任务名称 <span class="req">*</span></label>
+    <input id="name" name="name" type="text" maxlength="100" required value="{{ task.name }}">
+  </div>
+  <div class="field">
+    <label for="course">所属课程 <span class="req">*</span></label>
+    <input id="course" name="course" type="text" maxlength="60" required value="{{ task.course }}">
+  </div>
+  <div class="field">
+    <label for="description">任务描述</label>
+    <textarea id="description" name="description" rows="4" maxlength="1000">{{ task.description }}</textarea>
+  </div>
+  <div class="field">
+    <label for="due_date">截止日期 <span class="req">*</span></label>
+    <input id="due_date" name="due_date" type="date" required value="{{ task.due_date }}">
+  </div>
+  <div class="field">
+    <label for="priority">优先级</label>
+    <select id="priority" name="priority">
+      {% for p in priorities %}
+      <option value="{{ p }}" {% if task.priority == p %}selected{% endif %}>{{ p }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% if show_status %}
+  <div class="field">
+    <label for="status">状态</label>
+    <select id="status" name="status">
+      {% for s in statuses %}
+      <option value="{{ s }}" {% if task.status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  {% endif %}
+  <div class="actions">
+    <button class="btn btn-primary" type="submit">保存</button>
+    <a class="btn btn-plain" href="{{ url_for('index') }}">取消</a>
+  </div>
+</form>
+{% endblock %}

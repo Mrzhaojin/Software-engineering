@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ task.name }}{% endblock %}
+{% block content %}
+<div class="page-head">
+  <h1>{{ task.name }}</h1>
+  <div class="actions">
+    <a class="btn" href="{{ url_for('edit_task', task_id=task.id) }}">编辑</a>
+    <form class="inline" method="post" action="{{ url_for('delete_task', task_id=task.id) }}"
+          onsubmit="return confirm('确定要删除该任务吗？删除后不可恢复。');">
+      <button class="btn btn-danger" type="submit">删除</button>
+    </form>
+  </div>
+</div>
+
+{% if flag == 'overdue' %}
+<p class="notice notice-overdue">该任务已逾期（截止日期 {{ task.due_date }}），请尽快处理。</p>
+{% elif flag == 'soon' %}
+<p class="notice notice-soon">该任务即将到期（截止日期 {{ task.due_date }}）。</p>
+{% endif %}
+
+<dl class="detail">
+  <dt>所属课程</dt><dd>{{ task.course }}</dd>
+  <dt>截止日期</dt><dd>{{ task.due_date }}</dd>
+  <dt>优先级</dt><dd>{{ task.priority }}</dd>
+  <dt>状态</dt><dd>{{ task.status }}</dd>
+  <dt>任务描述</dt><dd>{{ task.description or '（无）' }}</dd>
+  <dt>创建时间</dt><dd>{{ task.created_at }}</dd>
+  <dt>更新时间</dt><dd>{{ task.updated_at }}</dd>
+</dl>
+
+<h2>调整状态</h2>
+<div class="status-actions">
+  {% for s in statuses %}
+  <form class="inline" method="post" action="{{ url_for('update_status', task_id=task.id) }}">
+    <input type="hidden" name="status" value="{{ s }}">
+    <button class="btn {% if task.status == s %}btn-primary{% endif %}" type="submit"
+            {% if task.status == s %}disabled{% endif %}>设为「{{ s }}」</button>
+  </form>
+  {% endfor %}
+</div>
+
+<p class="back"><a href="{{ url_for('index') }}">← 返回任务列表</a></p>
+{% endblock %}

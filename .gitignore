@@ -35,3 +35,7 @@ instance/
 .idea/
 Thumbs.db
 desktop.ini
+
+# ---- 本地工具 / 测试临时目录 ----
+/.uv-cache/
+_tmp/
