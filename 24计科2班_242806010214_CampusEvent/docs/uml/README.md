@@ -27,7 +27,8 @@
 | 用例图 | v1.1 | use-case-v1.1.drawio | 待学生评审 | baseline-v1（未打） |
 | 用例图（旧版） | v1.0 | use-case-v1.0.drawio | 已归档 | — |
 | 用例说明 | v1.1 | use-case-spec-v1.1.md | 待学生评审 | — |
-| 类图 | — | class-diagram-v1.0.drawio | 待绘制 | baseline-v1（未打） |
+| 类图 | v1.0 | class-diagram-v1.0.drawio | 待学生评审 | baseline-v1（未打） |
+| 类模型 | v1.0 | class-model-v1.0.md | 待学生评审 | — |
 | 时序图·报名 | — | sequence-signup-v1.0.drawio | 待绘制 | baseline-v1（未打） |
 | 时序图·审批 | — | sequence-approval-v1.0.drawio | 待绘制 | baseline-v1（未打） |
 
@@ -38,3 +39,4 @@
 | 2026-11-22 | 用例图 | v1.0 | 初稿：2 参与者、7 个用例、系统边界 | 需求基线 v1.1 | af4d002 之前 |
 | 2026-11-22 | 用例图 | v1.1 | 增加 Admin—浏览关联；共享用例居中；布局重排 | 学生评审意见 | 待提交 |
 | 2026-11-22 | 用例说明 | v1.1 | 首版：UC-01～UC-07 规约 | 用例图 v1.1、基线 v1.2 | 待提交 |
+| 2026-11-22 | 类图 | v1.0 | 方案甲：13 类/接口、CapacityChecker 公共名额检查、策略只返回状态 | 学生选定甲 | 待提交 |
