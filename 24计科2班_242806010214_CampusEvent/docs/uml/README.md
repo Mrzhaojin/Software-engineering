@@ -27,15 +27,20 @@
 | 用例图 | v1.1 | use-case-v1.1.drawio | 待学生评审 | baseline-v1（未打） |
 | 用例图（旧版） | v1.0 | use-case-v1.0.drawio | 已归档 | — |
 | 用例说明 | v1.1 | use-case-spec-v1.1.md | 待学生评审 | — |
-| 类图 | v1.1 | class-diagram-v1.1.drawio | 待学生评审 | baseline-v1（未打） |
+| 类图 | v1.2 | class-diagram-v1.2.drawio | 待学生评审 | baseline-v1（未打） |
+| 类图（旧版） | v1.1 | class-diagram-v1.1.drawio | 已归档 | — |
 | 类图（旧版） | v1.0 | class-diagram-v1.0.drawio | 已归档 | — |
-| 类模型 | v1.1 | class-model-v1.1.md | 待学生评审 | — |
+| 类模型 | v1.2 | class-model-v1.2.md | 待学生评审 | — |
+| 类模型（旧版） | v1.1 | class-model-v1.1.md | 已归档 | — |
 | 类模型（旧版） | v1.0 | class-model-v1.0.md | 已归档 | — |
-| 时序图·报名 | v1.1 | sequence-signup-v1.1.drawio | 待学生评审 | baseline-v1（未打） |
-| 时序图·审批 | v1.1 | sequence-approval-v1.1.drawio | 待学生评审 | baseline-v1（未打） |
-| 时序图·报名（旧版） | v1.0 | sequence-signup-v1.0.drawio | 已归档 | — |
-| 时序图·审批（旧版） | v1.0 | sequence-approval-v1.0.drawio | 已归档 | — |
-| 时序模型 | v1.1 | sequence-model-v1.1.md | 待学生评审 | — |
+| 时序图·报名 | v1.2 | sequence-signup-v1.2.drawio | 待学生评审 | baseline-v1（未打） |
+| 时序图·审批 | v1.2 | sequence-approval-v1.2.drawio | 待学生评审 | baseline-v1（未打） |
+| 时序图·取消 | v1.0 | sequence-cancel-v1.0.drawio | 待学生评审 | baseline-v1（未打） |
+| 时序图·报名（旧版） | v1.1 | sequence-signup-v1.1.drawio | 已归档 | — |
+| 时序图·审批（旧版） | v1.1 | sequence-approval-v1.1.drawio | 已归档 | — |
+| 时序图（旧版） | v1.0 | sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio | 已归档 | — |
+| 时序模型 | v1.2 | sequence-model-v1.2.md | 待学生评审 | — |
+| 时序模型（旧版） | v1.1 | sequence-model-v1.1.md | 已归档 | — |
 | 时序模型（旧版） | v1.0 | sequence-model-v1.0.md | 已归档 | — |
 
 ## 4. 升版记录
@@ -48,4 +53,6 @@
 | 2026-11-22 | 类图 | v1.0 | 方案甲：13 类/接口、CapacityChecker 公共名额检查、策略只返回状态 | 学生选定甲 | 3401a13 |
 | 2026-11-22 | 类图 | v1.1 | 补 2 个仓储接口、PolicyRegistry、RegistrationEvent；签名改 ID 入参 | 学生评审意见 | 49ab4be |
 | 2026-11-22 | 时序图 | v1.0 | 报名（直接/审核）、审批（批准/拒绝） | 类图 v1.1、用例说明 v1.1 | 65fc786 |
-| 2026-11-22 | 时序图 | v1.1 | alt 改直接/审核；加 opt 名额不足；通知改显式 alt | 学生评审意见 | 待提交 |
+| 2026-11-22 | 时序图 | v1.1 | alt 改直接/审核；加 opt 名额不足；通知改显式 alt | 学生评审意见 | dcbdb22 |
+| 2026-11-22 | 类图/类模型 | v1.2 | 补 ActivityService/MessageService/MessageRepository/PolicyProvider；count_pending；decide 上下文；修 DIP 表述 | 审前自查 P0/P1 | 待提交 |
+| 2026-11-22 | 时序图/模型 | v1.2 | 重复报名 alt、名额 alt、审批 0 行 alt；新增取消 v1.0 | 审前自查 P0 | 待提交 |

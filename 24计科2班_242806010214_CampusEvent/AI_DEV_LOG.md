@@ -17,6 +17,7 @@
 | 2026-11-22 / 时序图 v1.0 | 画报名（直接/审核）与审批（批准/拒绝）两张时序图，体现 CapacityChecker、事务回滚、消息去重 | AI 输出 sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio、sequence-model-v1.0.md；消息可映射到类图操作 | 待学生评审；指出直接分支缺少显式失败出口 |
 | 2026-11-22 / 时序图 v1.1 | 按评审意见：alt 改“直接/审核”；直接分支加 opt [名额不足]；通知改显式 alt [成功/失败] | AI 输出 sequence-signup-v1.1.drawio、sequence-approval-v1.1.drawio、sequence-model-v1.1.md | 学生已亲自审查通过；进入设计原则说明与评审记录 |
 | 2026-11-22 / 设计原则说明 + 评审记录模板 | 按 3.3-D 写设计原则与模式决策说明；准备评审记录模板（不代签） | AI 输出 07-设计原则与模式决策说明.md、08-设计评审记录.md；明确 3.3-D 只差评审人签名 | 学生将亲自请同学评审并签名 |
+| 2026-11-22 / 类图 v1.2 + 时序图 v1.2 + 取消 v1.0 | 按审前自查 P0/P1 修复：补 ActivityService、MessageService、MessageRepository、PolicyProvider；count_pending；重复报名 alt；审批 0 行 alt；取消时序 | AI 输出 class-diagram-v1.2、class-model-v1.2、sequence-signup/approval-v1.2、sequence-cancel-v1.0、sequence-model-v1.2 | 待学生复评 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 
