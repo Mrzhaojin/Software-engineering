@@ -106,7 +106,7 @@ Student、Activity、Registration、Message 四个实体持久化；其余为服
 - 关联多重性明确；依赖方向符合 DIP。
 - 策略实现不依赖 CapacityChecker（方案甲检查点）。
 - 观察者链完整：Publisher → Observer ← MessageObserver → Message；事件对象贯穿。
-- 待办：2 张时序图 v1.0（直接/审核报名、审批）后按 VOPC 回写，核对操作是否齐全。
+- 已完成：2 张时序图 v1.0（直接/审核报名、审批）；消息可映射到现有操作，未新增类；save 在 Repository 内承担条件更新（Q-05）。
 - 待办：设计原则说明（SRP/OCP/DIP）与评审签名（3.3-D）。
 
 ## 9. 变更记录
