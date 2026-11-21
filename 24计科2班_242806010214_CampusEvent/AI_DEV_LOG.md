@@ -14,7 +14,8 @@
 | 2026-11-22 / 用例图 v1.1 + 用例说明 v1.1 | 按评审意见补 Admin—浏览关联、活动详情余量展示；补 UC-01～UC-07 用例说明 | AI 重排布局（共享用例居中上方）、新增 REQ-23、输出 use-case-v1.1.drawio 与 use-case-spec-v1.1.md | 待学生评审 |
 | 2026-11-22 / 类图 v1.0（方案甲） | 对比甲/乙两套类设计；按学生选定甲画类图与类模型 | AI 输出 13 个类/接口、14 条关系、class-diagram-v1.0.drawio、class-model-v1.0.md；指出甲的“策略变薄/流程假设”等缺陷 | 学生选定甲；类图先审，确认后再画时序图 |
 | 2026-11-22 / 类图 v1.1 + 阶段核对 | 按评审意见补 2 个仓储、PolicyRegistry、RegistrationEvent，签名改 ID 入参；重新核对 3.3/3.4 | AI 输出 17 类/接口、19 条关系、class-model-v1.1.md、06-阶段核对；确认 baseline-v1 未到点（无代码/测试） | 待学生评审；确认后再画时序图 |
-| 2026-11-22 / 时序图 v1.0 | 画报名（直接/审核）与审批（批准/拒绝）两张时序图，体现 CapacityChecker、事务回滚、消息去重 | AI 输出 sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio、sequence-model-v1.0.md；消息可映射到类图操作 | 待学生评审；确认后写设计原则说明并组织评审签名 |
+| 2026-11-22 / 时序图 v1.0 | 画报名（直接/审核）与审批（批准/拒绝）两张时序图，体现 CapacityChecker、事务回滚、消息去重 | AI 输出 sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio、sequence-model-v1.0.md；消息可映射到类图操作 | 待学生评审；指出直接分支缺少显式失败出口 |
+| 2026-11-22 / 时序图 v1.1 | 按评审意见：alt 改“直接/审核”；直接分支加 opt [名额不足]；通知改显式 alt [成功/失败] | AI 输出 sequence-signup-v1.1.drawio、sequence-approval-v1.1.drawio、sequence-model-v1.1.md | 待学生评审；通过后写设计原则说明并组织评审签名 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 
