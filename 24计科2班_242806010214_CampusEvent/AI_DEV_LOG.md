@@ -15,7 +15,8 @@
 | 2026-11-22 / 类图 v1.0（方案甲） | 对比甲/乙两套类设计；按学生选定甲画类图与类模型 | AI 输出 13 个类/接口、14 条关系、class-diagram-v1.0.drawio、class-model-v1.0.md；指出甲的“策略变薄/流程假设”等缺陷 | 学生选定甲；类图先审，确认后再画时序图 |
 | 2026-11-22 / 类图 v1.1 + 阶段核对 | 按评审意见补 2 个仓储、PolicyRegistry、RegistrationEvent，签名改 ID 入参；重新核对 3.3/3.4 | AI 输出 17 类/接口、19 条关系、class-model-v1.1.md、06-阶段核对；确认 baseline-v1 未到点（无代码/测试） | 待学生评审；确认后再画时序图 |
 | 2026-11-22 / 时序图 v1.0 | 画报名（直接/审核）与审批（批准/拒绝）两张时序图，体现 CapacityChecker、事务回滚、消息去重 | AI 输出 sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio、sequence-model-v1.0.md；消息可映射到类图操作 | 待学生评审；指出直接分支缺少显式失败出口 |
-| 2026-11-22 / 时序图 v1.1 | 按评审意见：alt 改“直接/审核”；直接分支加 opt [名额不足]；通知改显式 alt [成功/失败] | AI 输出 sequence-signup-v1.1.drawio、sequence-approval-v1.1.drawio、sequence-model-v1.1.md | 待学生评审；通过后写设计原则说明并组织评审签名 |
+| 2026-11-22 / 时序图 v1.1 | 按评审意见：alt 改“直接/审核”；直接分支加 opt [名额不足]；通知改显式 alt [成功/失败] | AI 输出 sequence-signup-v1.1.drawio、sequence-approval-v1.1.drawio、sequence-model-v1.1.md | 学生已亲自审查通过；进入设计原则说明与评审记录 |
+| 2026-11-22 / 设计原则说明 + 评审记录模板 | 按 3.3-D 写设计原则与模式决策说明；准备评审记录模板（不代签） | AI 输出 07-设计原则与模式决策说明.md、08-设计评审记录.md；明确 3.3-D 只差评审人签名 | 学生将亲自请同学评审并签名 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 
