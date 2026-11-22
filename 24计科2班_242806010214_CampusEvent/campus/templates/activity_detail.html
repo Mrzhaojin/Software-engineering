@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <div class="page-head">
+    <h1>{{ activity.title }}</h1>
+    <a class="button-link" href="{{ url_for('main.activities') }}">返回列表</a>
+  </div>
+  <dl class="detail">
+    <dt>类型</dt><dd>{{ activity.category }}</dd>
+    <dt>时间</dt><dd>{{ activity.start_at|dt }}</dd>
+    <dt>地点</dt><dd>{{ activity.location }}</dd>
+    <dt>人数上限</dt><dd>{{ activity.capacity }}</dd>
+    <dt>报名方式</dt><dd>{{ '直接报名（自动通过）' if activity.policy_type == 'direct' else '管理员审核' }}</dd>
+    <dt>剩余名额</dt><dd>{{ activity.remaining }}</dd>
+  </dl>
+
+  {% if g.user.role == 'student' %}
+    {% if my_registration %}
+      <p>当前报名状态：<strong>{{ my_registration.status }}</strong></p>
+      <form method="post" action="{{ url_for('main.cancel_registration', registration_id=my_registration.registration_id) }}">
+        <button type="submit" class="danger">取消报名</button>
+      </form>
+    {% else %}
+      <form method="post" action="{{ url_for('main.register', activity_id=activity.activity_id) }}">
+        <button type="submit">报名</button>
+      </form>
+    {% endif %}
+  {% else %}
+    <div class="actions">
+      <a class="button-link" href="{{ url_for('main.activity_edit', activity_id=activity.activity_id) }}">编辑</a>
+      <form method="post" action="{{ url_for('main.activity_delete', activity_id=activity.activity_id) }}" onsubmit="return confirm('确认下线该活动？');">
+        <button type="submit" class="danger">下线（软删除）</button>
+      </form>
+    </div>
+  {% endif %}
+</section>
+{% endblock %}

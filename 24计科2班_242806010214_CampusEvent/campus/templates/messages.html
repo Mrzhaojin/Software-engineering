@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>站内消息</h1>
+{% if messages %}
+<table>
+  <thead><tr><th>内容</th><th>活动</th><th>时间</th><th>状态</th><th></th></tr></thead>
+  <tbody>
+  {% for m in messages %}
+    <tr class="{{ 'unread' if not m.is_read else '' }}">
+      <td>{{ m.content }}</td>
+      <td>{{ m.activity_title }}</td>
+      <td>{{ m.created_at|dt }}</td>
+      <td>{{ '已读' if m.is_read else '未读' }}</td>
+      <td>
+        {% if not m.is_read %}
+        <form method="post" action="{{ url_for('main.read_message', message_id=m.message_id) }}"><button type="submit">标记已读</button></form>
+        {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">暂无消息。</p>
+{% endif %}
+{% endblock %}

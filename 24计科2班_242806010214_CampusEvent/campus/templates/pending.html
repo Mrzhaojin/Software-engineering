@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>待审核报名</h1>
+{% if registrations %}
+<table>
+  <thead><tr><th>学生</th><th>活动</th><th>剩余名额</th><th>申请时间</th><th>操作</th></tr></thead>
+  <tbody>
+  {% for r in registrations %}
+    <tr>
+      <td>{{ r.student_name }}（{{ r.student_id }}）</td>
+      <td>{{ r.activity_title }}</td>
+      <td>{{ r.remaining }} / {{ r.activity_capacity }}</td>
+      <td>{{ r.created_at|dt }}</td>
+      <td class="actions">
+        <form method="post" action="{{ url_for('main.approve', registration_id=r.registration_id) }}"><button type="submit">批准</button></form>
+        <form method="post" action="{{ url_for('main.reject', registration_id=r.registration_id) }}"><button type="submit" class="danger">拒绝</button></form>
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">没有待审核报名。</p>
+{% endif %}
+{% endblock %}

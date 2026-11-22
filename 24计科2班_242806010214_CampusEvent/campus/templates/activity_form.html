@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <h1>{{ '新建活动' if is_new else '编辑活动' }}</h1>
+  <form method="post">
+    <label>名称<input name="title" value="{{ activity.get('title', '') }}" required></label>
+    <label>类型<input name="category" value="{{ activity.get('category', '') }}" placeholder="讲座 / 比赛 / 社团" required></label>
+    <label>开始时间<input type="datetime-local" name="start_at" value="{{ activity.get('start_at', '') }}" required></label>
+    <label>地点<input name="location" value="{{ activity.get('location', '') }}" required></label>
+    <label>人数上限<input type="number" name="capacity" min="1" value="{{ activity.get('capacity', 30) }}" required></label>
+    <label>报名方式
+      <select name="policy_type">
+        <option value="direct" {% if activity.get('policy_type') == 'direct' %}selected{% endif %}>直接报名（自动通过）</option>
+        <option value="audit" {% if activity.get('policy_type') == 'audit' %}selected{% endif %}>管理员审核</option>
+      </select>
+    </label>
+    <button type="submit">保存</button>
+    <a class="button-link" href="{{ url_for('main.activities') }}">取消</a>
+  </form>
+</section>
+{% endblock %}

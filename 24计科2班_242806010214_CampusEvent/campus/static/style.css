@@ -1,0 +1,31 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #222; background: #f6f7fb; }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 28px; background: #1f3a5f; color: #fff; }
+.topbar a { color: #fff; text-decoration: none; margin-left: 16px; }
+.brand a { font-weight: 700; font-size: 20px; margin-left: 0; }
+.who { margin-left: 20px; color: #cfe0ff; font-size: 14px; }
+main { max-width: 1080px; margin: 28px auto; padding: 0 16px; }
+h1 { font-size: 24px; }
+.card { background: #fff; padding: 22px 26px; border-radius: 10px; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.narrow { max-width: 620px; }
+.page-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
+.inline-form { display: flex; gap: 8px; align-items: center; }
+table { width: 100%; border-collapse: collapse; background: #fff; box-shadow: 0 1px 4px rgba(0,0,0,.06); }
+th, td { padding: 10px 12px; border-bottom: 1px solid #e8ebf0; text-align: left; vertical-align: top; }
+th { background: #eef2f8; font-size: 14px; }
+tr.unread td { font-weight: 600; }
+form label { display: block; margin: 12px 0; }
+input, select, button { font: inherit; padding: 8px 10px; border: 1px solid #c7ceda; border-radius: 6px; }
+input, select { width: 100%; }
+button { cursor: pointer; background: #2f6fed; color: #fff; border-color: #2f6fed; width: auto; }
+button.danger { background: #c0392b; border-color: #c0392b; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.button-link { display: inline-block; padding: 8px 12px; background: #eef2f8; border: 1px solid #c7ceda; border-radius: 6px; color: #1f3a5f; text-decoration: none; }
+.flash { padding: 10px 14px; border-radius: 6px; margin-bottom: 14px; }
+.flash.success { background: #e5f6ea; color: #1e6b35; }
+.flash.error { background: #fdecea; color: #8a1f16; }
+.muted { color: #6b7280; }
+.detail { display: grid; grid-template-columns: 120px 1fr; gap: 10px 16px; }
+.detail dt { color: #6b7280; }
+.hint { margin-top: 18px; padding: 12px; background: #f2f5fa; border-radius: 6px; font-size: 13px; }
+.hint p { margin: 4px 0; }

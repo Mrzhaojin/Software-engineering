@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CampusEvent · 校园活动报名</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand"><a href="{{ url_for('main.activities') }}">CampusEvent</a></div>
+    <nav>
+      <a href="{{ url_for('main.activities') }}">活动列表</a>
+      {% if g.user %}
+        {% if g.user.role == 'student' %}
+          <a href="{{ url_for('main.my_registrations') }}">我的报名</a>
+          <a href="{{ url_for('main.messages') }}">站内消息</a>
+        {% else %}
+          <a href="{{ url_for('main.pending') }}">待审核报名</a>
+          <a href="{{ url_for('main.stats') }}">活动统计</a>
+          <a href="{{ url_for('main.activity_new') }}">新建活动</a>
+        {% endif %}
+        <span class="who">{{ g.user.name }}（{{ '管理员' if g.user.role == 'admin' else '学生' }}）</span>
+        <a href="{{ url_for('main.logout') }}">退出</a>
+      {% else %}
+        <a href="{{ url_for('main.login') }}">登录</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main>
+    {% for category, message in get_flashed_messages(with_categories=true) %}
+      <div class="flash {{ category }}">{{ message }}</div>
+    {% endfor %}
+    {% block content %}{% endblock %}
+  </main>
+</body>
+</html>

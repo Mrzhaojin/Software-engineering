@@ -18,7 +18,8 @@
 | 2026-11-22 / 时序图 v1.1 | 按评审意见：alt 改“直接/审核”；直接分支加 opt [名额不足]；通知改显式 alt [成功/失败] | AI 输出 sequence-signup-v1.1.drawio、sequence-approval-v1.1.drawio、sequence-model-v1.1.md | 学生已亲自审查通过；进入设计原则说明与评审记录 |
 | 2026-11-22 / 设计原则说明 + 评审记录模板 | 按 3.3-D 写设计原则与模式决策说明；准备评审记录模板（不代签） | AI 输出 07-设计原则与模式决策说明.md、08-设计评审记录.md；明确 3.3-D 只差评审人签名 | 学生将亲自请同学评审并签名 |
 | 2026-11-22 / 类图 v1.2 + 时序图 v1.2 + 取消 v1.0 | 按审前自查 P0/P1 修复：补 ActivityService、MessageService、MessageRepository、PolicyProvider；count_pending；重复报名 alt；审批 0 行 alt；取消时序 | AI 输出 class-diagram-v1.2、class-model-v1.2、sequence-signup/approval-v1.2、sequence-cancel-v1.0、sequence-model-v1.2 | 待学生复评 |
-| 2026-11-22 / 评审通过 + save 拆分 v1.3 | 评审结论通过；按 4.2 建议拆 confirm_approval，save 只保留创建/简单状态更新 | AI 输出 class-diagram-v1.3、class-model-v1.3、sequence-approval-v1.3、sequence-model-v1.3；建议评审人清理 08 的 4.1 残留行并确认 v1.3 | 待评审人确认 v1.3；确认后可进入编码 |
+| 2026-11-22 / 评审通过 + save 拆分 v1.3 | 评审结论通过；按 4.2 建议拆 confirm_approval，save 只保留创建/简单状态更新 | AI 输出 class-diagram-v1.3、class-model-v1.3、sequence-approval-v1.3、sequence-model-v1.3；建议评审人清理 08 的 4.1 残留行并确认 v1.3 | 评审人已清理 4.1 并在复评记录确认 v1.3；进入编码 |
+| 2026-11-22 / 初始版本编码 | 按类图/时序图实现 Flask + SQLite 初始版本：活动管理、报名/审批/取消、观察者通知、统计、消息 | AI 实现 campus 包（4 Repository、策略、CapacityChecker、事件/观察者、3 Service、路由与模板）；20 条 pytest 全部通过 | 待 C1–C10 人工验收、云部署；通过后打 baseline-v1 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 

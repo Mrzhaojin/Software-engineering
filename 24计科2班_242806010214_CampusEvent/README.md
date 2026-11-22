@@ -1,81 +1,124 @@
 # CampusEvent · 校园活动报名与管理系统
 
 > 《软件工程》实验二 ｜ 24 计科 2 班 · 242806010214 ｜ 项目代号：CampusEvent
-> 状态：🚧 进行中（2026-11-19 启动，当前处于初始需求分析与设计阶段）
-> 需求来源：实验指导书 3.2 节、附录 B
+> 状态：🚧 初始版本已实现，**20 条 pytest 全部通过**（2026-11-22）；待 C1–C10 人工验收与云服务器部署，之后再打 baseline-v1。
+> 设计评审：已由王以欣评审并签署（结论：通过，2026-11-22），见 docs/08-设计评审记录.md。
 
 ## 1. 项目概述
 
-校园管理员发布活动，学生浏览活动并报名。初始版本支持“直接报名”和“管理员审核”两类活动，报名结果通过站内消息通知。使用固定演示账号，无需用户注册和复杂权限系统。
+校园管理员发布活动，学生浏览活动并报名；支持“直接报名”和“管理员审核”两类规则，报名/审核结果通过站内消息通知。使用固定演示账号，无注册、无复杂权限系统。
 
-## 2. 初始功能范围（P2-F01～P2-F08）
+## 2. 技术栈
 
-| 编号 | 功能模块 | 初始版本要求 |
-| --- | --- | --- |
-| P2-F01 | 活动管理 | 管理员创建、编辑、删除活动，设置名称、类型、时间、地点、人数上限及报名方式 |
-| P2-F02 | 活动查看 | 学生浏览活动列表与详情，可按名称筛选 |
-| P2-F03 | 报名 / 取消 | 学生报名、取消；禁止同一活动出现重复有效报名 |
-| P2-F04 | 报名策略 | 直接报名自动通过；审核型报名进入待审核状态 |
-| P2-F05 | 审批操作 | 管理员批准或拒绝待审核申请，批准时再次检查名额 |
-| P2-F06 | 状态管理 | 待审核、已通过、已拒绝、已取消；状态转换符合规则 |
-| P2-F07 | 站内通知 | 报名结果及审核结果写入站内消息列表 |
-| P2-F08 | 统计 | 按活动查看已通过数、待审核数和剩余名额 |
+- Python 3.11+（开发验证 3.13.1）
+- Flask 3.1 + Jinja2
+- SQLite（首次启动自动建库）
+- pytest 9
 
-**范围外**：用户注册与复杂权限（附录 B.1 规定可用固定演示账号）；消息队列（3.3 设计任务 C 明确不引入）。
+## 3. 演示账号
 
-## 3. 目录约定
+| 账号 | 密码 | 角色 | 说明 |
+|---|---|---|---|
+| admin | admin123 | 管理员 | 活动管理、审批、统计 |
+| S001 | 123456 | 学生（张三） | 报名、取消、消息 |
+| S002 | 123456 | 学生（李四） | 用于名额/重复报名验证 |
+| S003 | 123456 | 学生（王五） | 用于名额已满验证 |
+
+## 4. 从零运行
+
+```bash
+cd 24计科2班_242806010214_CampusEvent
+python -m venv .venv
+# Windows
+.venv\Scripts\activate
+# macOS/Linux
+source .venv/bin/activate
+pip install -r requirements.txt
+python app.py
+```
+
+浏览器打开 <http://127.0.0.1:5000>。
+
+首次启动在 `instance/campusevent.db` 自动建表并写入演示学生；删除该文件可重置。管理员登录后先“新建活动”，再切换学生账号报名。
+
+## 5. 测试
+
+```bash
+python -m pytest tests -q
+```
+
+当前结果：**20 passed**。覆盖 C1–C10、重复报名、名额超限、审批满员/并发冲突、取消限制（Q-03）、软删除、消息已读、持久化与权限。
+
+## 6. 目录结构
 
 ```text
 24计科2班_242806010214_CampusEvent/
-├── README.md          # 本文件：项目说明与交付进度
-├── app.py             # Flask 应用（待实现）
-├── schema.sql         # SQLite 建表与初始化脚本（待实现）
-├── templates/         # 页面模板（待实现）
-├── static/            # 样式与静态资源（待实现）
-├── tests/             # pytest 自动化测试
-├── docs/              # SRS 分析、用例、UML 图、评审记录、变更分析、回归测试、报告与 PPT
-├── requirements.txt   # Python 依赖（待补充）
-└── AI_DEV_LOG.md      # AI 协作过程记录（5–10 条代表性事件）
+├── app.py                     # Flask 入口
+├── campus/
+│   ├── __init__.py            # app factory
+│   ├── schema.sql             # SQLite 建表
+│   ├── db.py                  # 连接、初始化、演示学生
+│   ├── repositories.py        # 4 个 Repository
+│   ├── policies.py            # 策略接口/两实现/PolicyProvider
+│   ├── capacity.py            # CapacityChecker
+│   ├── events.py              # 事件、发布者、观察者
+│   ├── services.py            # Activity/Registration/Message Service
+│   ├── routes.py              # 页面与表单
+│   ├── templates/             # Jinja2 页面
+│   └── static/style.css
+├── tests/                     # pytest（20 条）
+├── docs/                      # 需求基线、UML、评审记录、设计说明
+├── requirements.txt
+├── AI_DEV_LOG.md
+└── README.md
 ```
 
-## 4. 里程碑（指导书 3.4）
+## 7. 设计文档
 
-| 阶段 | 产出 | 检查点 |
-| --- | --- | --- |
-| 第 1 周 | 阅读初始 SRS、划分领域对象、绘制初版 UML 类图 | 设计方案 V1 |
-| 第 1 周 | 设计评审（评审学生签名）、明确接口与策略、指导 AI 编码 | 已评审类图与接口定义 |
-| 第 1 周 | 初始功能、自动测试、版本封存 | Git 标签 `baseline-v1` |
-| 第 2 周 | 接收教师需求变更（CR）、提交影响分析、使用 AI 修改 | 变更影响分析与实现 |
-| 第 2 周 | 回归测试、可维护性对照、完成报告与答辩 | Git 标签 `change-v2` 及分析报告 |
+- 需求基线：[docs/01-需求基线.md](docs/01-需求基线.md)（v1.3）
+- 用例图/说明：[docs/uml/use-case-v1.1.drawio](docs/uml/use-case-v1.1.drawio)、[docs/uml/use-case-spec-v1.1.md](docs/uml/use-case-spec-v1.1.md)
+- 类图/类模型：[docs/uml/class-diagram-v1.3.drawio](docs/uml/class-diagram-v1.3.drawio)、[docs/uml/class-model-v1.3.md](docs/uml/class-model-v1.3.md)
+- 时序图：[docs/uml/sequence-signup-v1.2.drawio](docs/uml/sequence-signup-v1.2.drawio)、[docs/uml/sequence-approval-v1.3.drawio](docs/uml/sequence-approval-v1.3.drawio)、[docs/uml/sequence-cancel-v1.0.drawio](docs/uml/sequence-cancel-v1.0.drawio)
+- 设计原则与模式决策：[docs/07-设计原则与模式决策说明.md](docs/07-设计原则与模式决策说明.md)
+- 设计评审记录：[docs/08-设计评审记录.md](docs/08-设计评审记录.md)
 
-## 5. 交付物清单（指导书 3.8）
+## 8. 已实现功能（P2-F01～F08）
 
-- [ ] 初始 SRS 分析与用例说明
-- [ ] 初版与变更版 UML 类图；至少 2 张时序图（报名、审批）
-- [ ] 设计模式决策报告；评审学生签名记录
-- [ ] 两版源代码与 Git 标签 `baseline-v1` / `change-v2`
-- [ ] 回归测试表与变更影响分析（模板见附录 D.4）
-- [ ] `AI_DEV_LOG.md`（5–10 条）、项目总结（5–8 页）、答辩 PPT
-- [ ] 云服务器部署地址（实验二要求必须部署，README 中给出）
+| 编号 | 功能 | 实现 |
+|---|---|---|
+| P2-F01 | 活动管理 | 管理员创建/编辑/软删除活动 |
+| P2-F02 | 活动查看 | 列表、详情、按名称筛选、剩余名额 |
+| P2-F03 | 报名/取消 | 报名、取消；唯一有效报名约束 |
+| P2-F04 | 报名策略 | 直接报名自动通过；审核型待审核 |
+| P2-F05 | 审批 | 管理员批准/拒绝；批准前重查名额 |
+| P2-F06 | 状态管理 | PENDING/APPROVED/REJECTED/CANCELLED |
+| P2-F07 | 站内通知 | 报名/审核结果写消息；可标记已读 |
+| P2-F08 | 统计 | 管理员按活动查看已通过/待审核/剩余 |
 
-## 6. 当前进度（2026-11-19）
+## 9. 验收用例与测试对应
 
-| 事项 | 状态 |
-| --- | --- |
-| 项目目录与 README | ✅ 已建立 |
-| 初始 SRS 分析与用例说明 | ⏳ 待完成 |
-| 初版 UML 类图与时序图 | ⏳ 待完成 |
-| 设计评审（学生签名） | ⏳ 待完成 |
-| 初始版本实现与 `baseline-v1` | ⏳ 待完成 |
-| 需求变更（CR）与 `change-v2` | ⏳ 待教师发布 |
+| 用例 | 测试 |
+|---|---|
+| C1 创建直接报名活动 | test_create_activity_c1 |
+| C2 直接报名通过并通知 | test_direct_signup_and_message_c2 |
+| C3 拒绝重复报名 | test_duplicate_signup_c3 |
+| C4 名额满后报名失败 | test_capacity_full_c4 |
+| C5 审核型待审核 | test_audit_pending_c5 |
+| C6 批准并通知 | test_approve_c6 |
+| C7 拒绝并通知 | test_reject_c7 |
+| C8 批准时满员失败 | test_approve_full_c8 |
+| C9 取消报名/统计同步 | test_cancel_pending_c9 等 |
+| C10 重启后数据一致 | test_persistence_c10 |
 
-## 7. 运行说明
+## 10. 已知限制（如实说明）
 
-> 初始版本实现后补充：环境依赖、数据库初始化、启动命令、测试命令与云服务器访问地址。
+1. 演示账号硬编码在 routes.py，无注册、无密码哈希、无 CSRF；仅用于课程演示。
+2. 单进程 SQLite；未做高并发压测。审批并发由条件更新 + 唯一约束兜底。
+3. Message 表有技术字段 event_key（唯一）用于重复通知防护，类图 v1.3 的领域字段未展开该技术列。
+4. confirm_approval 内含容量条件，CapacityChecker 也做前置检查；两处口径需保持一致。
+5. 尚未部署云服务器；实验二要求部署，部署后需在 README 补访问地址。
+6. 尚未打 baseline-v1；需完成 C1–C10 人工验收与版本封存后再打。
 
-## 8. 关键约束（摘自指导书）
+## 11. AI 协作
 
-- **设计先行**：AI 生成代码前，需求用例、UML 类图、关键时序图与设计原则说明必须经其他学生评审并签名。
-- **不得提前实现变更**：教师统一发布 CR 前，不得针对变更单事先实现功能。
-- **可维护性用证据说话**：对照 `baseline-v1` 与 `change-v2` 统计新增类数、修改的核心业务类数、回归失败数、AI 交互轮次与修改总时长。
-- **版本可追溯**：初版与变更版分别打 `baseline-v1`、`change-v2` 标签，变更在 `baseline-v1` 的基础上开分支完成。
+见 [AI_DEV_LOG.md](AI_DEV_LOG.md)：关键指令、AI 产出与问题、人工判断（评审意见、版本修订、测试结果）。

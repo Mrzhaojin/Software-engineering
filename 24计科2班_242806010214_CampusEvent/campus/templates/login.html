@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card narrow">
+  <h1>登录</h1>
+  <p class="muted">固定演示账号，无需注册。</p>
+  <form method="post">
+    <label>账号<input name="username" autocomplete="username" required></label>
+    <label>密码<input type="password" name="password" autocomplete="current-password" required></label>
+    <button type="submit">登录</button>
+  </form>
+  <div class="hint">
+    <p>管理员：admin / admin123</p>
+    <p>学生：S001、S002、S003 / 123456</p>
+  </div>
+</section>
+{% endblock %}

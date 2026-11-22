@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>活动统计</h1>
+{% if activities %}
+<form method="get" class="inline-form">
+  <select name="activity_id" onchange="this.form.submit()">
+    {% for a in activities %}
+      <option value="{{ a.activity_id }}" {% if selected and a.activity_id == selected.activity_id %}selected{% endif %}>{{ a.title }}</option>
+    {% endfor %}
+  </select>
+</form>
+{% if selected %}
+<table class="stats">
+  <tr><th>活动</th><td>{{ selected.title }}</td></tr>
+  <tr><th>人数上限</th><td>{{ selected.capacity }}</td></tr>
+  <tr><th>已通过</th><td>{{ approved }}</td></tr>
+  <tr><th>待审核</th><td>{{ pending_count }}</td></tr>
+  <tr><th>剩余名额</th><td>{{ remaining }}</td></tr>
+</table>
+{% endif %}
+{% else %}
+<p class="muted">暂无活动。</p>
+{% endif %}
+{% endblock %}
