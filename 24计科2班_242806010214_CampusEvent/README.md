@@ -81,6 +81,7 @@ python -m pytest tests -q
 - 时序图：[docs/uml/sequence-signup-v1.2.drawio](docs/uml/sequence-signup-v1.2.drawio)、[docs/uml/sequence-approval-v1.3.drawio](docs/uml/sequence-approval-v1.3.drawio)、[docs/uml/sequence-cancel-v1.0.drawio](docs/uml/sequence-cancel-v1.0.drawio)
 - 设计原则与模式决策：[docs/07-设计原则与模式决策说明.md](docs/07-设计原则与模式决策说明.md)
 - 设计评审记录：[docs/08-设计评审记录.md](docs/08-设计评审记录.md)
+- 人工验收记录：[docs/验收记录.md](docs/验收记录.md)（C1–C10 待填；截图可放 `docs/evidence/`）
 
 ## 8. 已实现功能（P2-F01～F08）
 
