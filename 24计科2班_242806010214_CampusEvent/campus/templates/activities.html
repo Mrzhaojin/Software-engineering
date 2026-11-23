@@ -8,17 +8,21 @@
   </form>
 </div>
 {% if activities %}
-<table>
+<table class="activities-table">
+  <colgroup>
+    <col style="width: 24%"><col style="width: 9%"><col style="width: 15%"><col style="width: 18%">
+    <col style="width: 12%"><col style="width: 10%"><col style="width: 12%">
+  </colgroup>
   <thead><tr><th>活动</th><th>类型</th><th>时间</th><th>地点</th><th>报名方式</th><th>剩余名额</th><th></th></tr></thead>
   <tbody>
   {% for a in activities %}
     <tr>
-      <td>{{ a.title }}</td>
+      <td class="cell-truncate" title="{{ a.title }}">{{ a.title }}</td>
       <td>{{ a.category }}</td>
-      <td>{{ a.start_at|dt }}</td>
-      <td>{{ a.location }}</td>
-      <td>{{ '直接报名' if a.policy_type == 'direct' else '管理员审核' }}</td>
-      <td>{{ a.remaining }} / {{ a.capacity }}</td>
+      <td class="nowrap">{{ a.start_at|dt }}</td>
+      <td class="cell-truncate" title="{{ a.location }}">{{ a.location }}</td>
+      <td class="nowrap">{{ '直接报名' if a.policy_type == 'direct' else '管理员审核' }}</td>
+      <td class="nowrap">{{ a.remaining }} / {{ a.capacity }}</td>
       <td><a class="button-link" href="{{ url_for('main.activity_detail', activity_id=a.activity_id) }}">查看</a></td>
     </tr>
   {% endfor %}

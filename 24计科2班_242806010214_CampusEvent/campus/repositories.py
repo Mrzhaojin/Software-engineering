@@ -149,6 +149,26 @@ class RegistrationRepository:
                ORDER BY r.created_at""",
         ).fetchall()
 
+    def list_reviewed(self):
+        return self.db.execute(
+            """SELECT r.*, a.title AS activity_title, s.name AS student_name
+               FROM registrations r
+               JOIN activities a ON a.activity_id = r.activity_id
+               JOIN students s ON s.student_id = r.student_id
+               WHERE r.status IN ('APPROVED', 'REJECTED')
+               ORDER BY r.updated_at DESC""",
+        ).fetchall()
+
+    def list_by_activity(self, activity_id):
+        return self.db.execute(
+            """SELECT r.*, s.name AS student_name
+               FROM registrations r
+               JOIN students s ON s.student_id = r.student_id
+               WHERE r.activity_id = ?
+               ORDER BY r.created_at""",
+            (activity_id,),
+        ).fetchall()
+
 
 class MessageRepository:
     def __init__(self, db):

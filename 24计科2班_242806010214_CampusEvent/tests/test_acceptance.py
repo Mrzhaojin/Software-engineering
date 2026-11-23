@@ -213,3 +213,30 @@ def test_activity_filter(app, client):
     body = resp.get_data(as_text=True)
     assert "数据结构讲座" in body
     assert "数据库实验" not in body
+def test_reviewed_page_lists_approved_and_rejected(app, client):
+    activity_id = create_activity(app, client, "已审核记录活动", capacity=2, policy_type="audit")
+    login(client, "S001")
+    client.post(f"/activities/{activity_id}/register", follow_redirects=True)
+    login(client, "S002")
+    client.post(f"/activities/{activity_id}/register", follow_redirects=True)
+    regs = fetch_all(app, "SELECT * FROM registrations WHERE activity_id = ? ORDER BY student_id", (activity_id,))
+    login(client, "admin")
+    client.post(f"/admin/registrations/{regs[0]['registration_id']}/approve", follow_redirects=True)
+    client.post(f"/admin/registrations/{regs[1]['registration_id']}/reject", follow_redirects=True)
+    resp = client.get("/admin/reviewed", follow_redirects=True)
+    body = resp.get_data(as_text=True)
+    assert resp.status_code == 200
+    assert "张三" in body and "李四" in body
+    assert "APPROVED" in body and "REJECTED" in body
+
+
+def test_stats_shows_participant_details(app, client):
+    activity_id = create_activity(app, client, "统计参与详情活动", capacity=2)
+    login(client, "S001")
+    client.post(f"/activities/{activity_id}/register", follow_redirects=True)
+    login(client, "admin")
+    resp = client.get(f"/admin/stats?activity_id={activity_id}", follow_redirects=True)
+    body = resp.get_data(as_text=True)
+    assert resp.status_code == 200
+    assert "参与详情" in body
+    assert "张三" in body and "S001" in body and "APPROVED" in body

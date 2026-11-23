@@ -17,6 +17,26 @@
   <tr><th>待审核</th><td>{{ pending_count }}</td></tr>
   <tr><th>剩余名额</th><td>{{ remaining }}</td></tr>
 </table>
+
+<h2>参与详情</h2>
+{% if participants %}
+<table>
+  <thead><tr><th>学生</th><th>学号</th><th>状态</th><th>报名时间</th><th>更新时间</th></tr></thead>
+  <tbody>
+  {% for r in participants %}
+    <tr>
+      <td>{{ r.student_name }}</td>
+      <td>{{ r.student_id }}</td>
+      <td>{{ r.status }}</td>
+      <td>{{ r.created_at|dt }}</td>
+      <td>{{ r.updated_at|dt }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="muted">该活动暂无报名记录。</p>
+{% endif %}
 {% endif %}
 {% else %}
 <p class="muted">暂无活动。</p>

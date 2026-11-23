@@ -270,6 +270,14 @@ def reject(registration_id):
     return redirect(url_for("main.pending"))
 
 
+@bp.route("/admin/reviewed")
+@admin_required
+def reviewed():
+    svc = _services()
+    rows = svc["registration_repo"].list_reviewed()
+    return render_template("reviewed.html", registrations=rows)
+
+
 @bp.route("/admin/stats")
 @admin_required
 def stats():
@@ -286,8 +294,10 @@ def stats():
     approved = svc["registration_repo"].count_approved(selected_id) if selected else 0
     pending_count = svc["registration_repo"].count_pending(selected_id) if selected else 0
     remaining = max(0, selected["capacity"] - approved) if selected else 0
+    participants = svc["registration_repo"].list_by_activity(selected_id) if selected else []
     return render_template("stats.html", activities=activities, selected=selected,
-                           approved=approved, pending_count=pending_count, remaining=remaining)
+                           approved=approved, pending_count=pending_count, remaining=remaining,
+                           participants=participants)
 
 
 @bp.route("/messages")

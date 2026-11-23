@@ -1,7 +1,7 @@
 # CampusEvent · 校园活动报名与管理系统
 
 > 《软件工程》实验二 ｜ 24 计科 2 班 · 242806010214 ｜ 项目代号：CampusEvent
-> 状态：🚧 初始版本已实现，**20 条 pytest 全部通过**（2026-11-22）；待 C1–C10 人工验收与云服务器部署，之后再打 baseline-v1。
+> 状态：🚧 初始版本已实现，**22 条 pytest 全部通过**（2026-11-23）；C1–C10 人工验收已执行，验收发现 D-01～D-04 已修复，待复验与云服务器部署后再打 baseline-v1。
 > 设计评审：已由王以欣评审并签署（结论：通过，2026-11-22），见 docs/08-设计评审记录.md。
 
 ## 1. 项目概述
@@ -33,7 +33,12 @@ python -m venv .venv
 .venv\Scripts\activate
 # macOS/Linux
 source .venv/bin/activate
-pip install -r requirements.txt
+#临时清空当前终端的代理环境变量
+set http_proxy=
+set https_proxy=
+#国内镜像安装，避免网络卡死
+pip install -r requirements.txt -i https://mirrors.aliyun.com/pypi/simple/ --no-cache-dir
+
 python app.py
 ```
 
@@ -47,7 +52,7 @@ python app.py
 python -m pytest tests -q
 ```
 
-当前结果：**20 passed**。覆盖 C1–C10、重复报名、名额超限、审批满员/并发冲突、取消限制（Q-03）、软删除、消息已读、持久化与权限。
+当前结果：**22 passed**。覆盖 C1–C10、重复报名、名额超限、审批满员/并发冲突、取消限制（Q-03）、软删除、消息已读、持久化、权限，以及已审核记录页与统计参与详情。
 
 ## 6. 目录结构
 
@@ -77,7 +82,7 @@ python -m pytest tests -q
 
 - 需求基线：[docs/01-需求基线.md](docs/01-需求基线.md)（v1.3）
 - 用例图/说明：[docs/uml/use-case-v1.1.drawio](docs/uml/use-case-v1.1.drawio)、[docs/uml/use-case-spec-v1.1.md](docs/uml/use-case-spec-v1.1.md)
-- 类图/类模型：[docs/uml/class-diagram-v1.3.drawio](docs/uml/class-diagram-v1.3.drawio)、[docs/uml/class-model-v1.3.md](docs/uml/class-model-v1.3.md)
+- 类图/类模型：[docs/uml/class-diagram-v1.4.drawio](docs/uml/class-diagram-v1.4.drawio)、[docs/uml/class-model-v1.4.md](docs/uml/class-model-v1.4.md)
 - 时序图：[docs/uml/sequence-signup-v1.2.drawio](docs/uml/sequence-signup-v1.2.drawio)、[docs/uml/sequence-approval-v1.3.drawio](docs/uml/sequence-approval-v1.3.drawio)、[docs/uml/sequence-cancel-v1.0.drawio](docs/uml/sequence-cancel-v1.0.drawio)
 - 设计原则与模式决策：[docs/07-设计原则与模式决策说明.md](docs/07-设计原则与模式决策说明.md)
 - 设计评审记录：[docs/08-设计评审记录.md](docs/08-设计评审记录.md)
@@ -95,6 +100,8 @@ python -m pytest tests -q
 | P2-F06 | 状态管理 | PENDING/APPROVED/REJECTED/CANCELLED |
 | P2-F07 | 站内通知 | 报名/审核结果写消息；可标记已读 |
 | P2-F08 | 统计 | 管理员按活动查看已通过/待审核/剩余 |
+
+> 验收增强（非 C1–C10 必需）：已审核记录页（D-01）、统计页参与详情（D-02）。
 
 ## 9. 验收用例与测试对应
 
@@ -115,10 +122,10 @@ python -m pytest tests -q
 
 1. 演示账号硬编码在 routes.py，无注册、无密码哈希、无 CSRF；仅用于课程演示。
 2. 单进程 SQLite；未做高并发压测。审批并发由条件更新 + 唯一约束兜底。
-3. Message 表有技术字段 event_key（唯一）用于重复通知防护，类图 v1.3 的领域字段未展开该技术列。
+3. Message 表有技术字段 event_key（唯一）用于重复通知防护，类图 v1.4 的领域字段未展开该技术列。
 4. confirm_approval 内含容量条件，CapacityChecker 也做前置检查；两处口径需保持一致。
 5. 尚未部署云服务器；实验二要求部署，部署后需在 README 补访问地址。
-6. 尚未打 baseline-v1；需完成 C1–C10 人工验收与版本封存后再打。
+6. 尚未打 baseline-v1；D-01～D-04 已修复，需人工复验、云服务器部署与版本封存后再打。
 
 ## 11. AI 协作
 

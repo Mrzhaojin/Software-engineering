@@ -29,3 +29,10 @@ button.danger { background: #c0392b; border-color: #c0392b; }
 .detail dt { color: #6b7280; }
 .hint { margin-top: 18px; padding: 12px; background: #f2f5fa; border-radius: 6px; font-size: 13px; }
 .hint p { margin: 4px 0; }
+.inline-form input { width: 280px; }
+.inline-form button { width: auto; flex-shrink: 0; white-space: nowrap; }
+.activities-table { table-layout: fixed; }
+.activities-table th, .activities-table td { overflow: hidden; }
+.cell-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.nowrap { white-space: nowrap; }
+h2 { font-size: 20px; margin: 28px 0 12px; }
