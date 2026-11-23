@@ -20,6 +20,7 @@
 | 2026-11-22 / 类图 v1.2 + 时序图 v1.2 + 取消 v1.0 | 按审前自查 P0/P1 修复：补 ActivityService、MessageService、MessageRepository、PolicyProvider；count_pending；重复报名 alt；审批 0 行 alt；取消时序 | AI 输出 class-diagram-v1.2、class-model-v1.2、sequence-signup/approval-v1.2、sequence-cancel-v1.0、sequence-model-v1.2 | 待学生复评 |
 | 2026-11-22 / 评审通过 + save 拆分 v1.3 | 评审结论通过；按 4.2 建议拆 confirm_approval，save 只保留创建/简单状态更新 | AI 输出 class-diagram-v1.3、class-model-v1.3、sequence-approval-v1.3、sequence-model-v1.3；建议评审人清理 08 的 4.1 残留行并确认 v1.3 | 评审人已清理 4.1 并在复评记录确认 v1.3；进入编码 |
 | 2026-11-22 / 初始版本编码 | 按类图/时序图实现 Flask + SQLite 初始版本：活动管理、报名/审批/取消、观察者通知、统计、消息 | AI 实现 campus 包（4 Repository、策略、CapacityChecker、事件/观察者、3 Service、路由与模板）；20 条 pytest 全部通过 | 待 C1–C10 人工验收、云部署；通过后打 baseline-v1 |
+| 2026-11-23 / 验收补充 D-05 | 登录页登录窗口偏左 | AI 修复：.card.narrow 增加 margin-left/right: auto，登录/活动表单居中；补 D0-5.png | 待人工复验 |
 | 2026-11-23 / 验收缺陷修复 D-01～D-04 | 验收发现：无已审核记录、统计无参与详情、筛选按钮竖排、长文本撑破列表 | AI 分类：D-03/D-04 为 UI 缺陷；D-01/D-02 为超出 SRS 的验收增强。新增 /admin/reviewed、统计参与详情 list_reviewed/list_by_activity，修复 CSS 与截断；pytest 22 passed，类图/模型升 v1.4 | 待人工复验；复验后在验收记录填结果并重新确认结论 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）

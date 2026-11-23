@@ -36,3 +36,4 @@ button.danger { background: #c0392b; border-color: #c0392b; }
 .cell-truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .nowrap { white-space: nowrap; }
 h2 { font-size: 20px; margin: 28px 0 12px; }
+.card.narrow { margin-left: auto; margin-right: auto; }
