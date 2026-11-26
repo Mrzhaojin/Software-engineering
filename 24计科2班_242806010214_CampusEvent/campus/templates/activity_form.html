@@ -14,6 +14,10 @@
         <option value="audit" {% if activity.get('policy_type') == 'audit' %}selected{% endif %}>管理员审核</option>
       </select>
     </label>
+    <label class="checkbox">
+      <input type="checkbox" name="grade_limited" value="1" {% if activity.get('grade_limited') %}checked{% endif %}>
+      年级限定：仅大二、大三学生可报名（仅直接报名可用）
+    </label>
     <button type="submit">保存</button>
     <a class="button-link" href="{{ url_for('main.activities') }}">取消</a>
   </form>

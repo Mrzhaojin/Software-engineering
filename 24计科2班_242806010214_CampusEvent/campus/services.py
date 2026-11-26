@@ -40,12 +40,16 @@ class ActivityService:
         if policy_type not in ("direct", "audit"):
             raise ValidationError("报名方式不正确")
         start_at = _parse_dt(data.get("start_at"))
+        grade_limited = 1 if str(data.get("grade_limited") or "").lower() in ("1", "on", "true") else 0
+        if grade_limited and policy_type != "direct":
+            raise ValidationError("年级限定只能用于直接报名活动")
         return {
             "title": title,
             "category": category,
             "location": location,
             "capacity": capacity,
             "policy_type": policy_type,
+            "grade_limited": grade_limited,
             "start_at": start_at.isoformat(timespec="minutes"),
         }
 
@@ -113,7 +117,7 @@ class RegistrationService:
             if self.registration_repo.find_active(student_id, activity_id):
                 raise ConflictError("你已报名该活动，不能重复报名")
 
-            policy = self.policy_provider.get(activity["policy_type"])
+            policy = self.policy_provider.get(activity)
             status = policy.decide(activity, student)
             if status == "APPROVED":
                 self.capacity_checker.ensure_available(activity)

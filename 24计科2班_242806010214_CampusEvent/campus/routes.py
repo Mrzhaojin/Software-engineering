@@ -1,12 +1,13 @@
 from functools import wraps
-from flask import Blueprint, flash, g, redirect, render_template, request, session, url_for
+from flask import Blueprint, current_app, flash, g, redirect, render_template, request, session, url_for
 
 from .db import get_db
 from .repositories import (StudentRepository, ActivityRepository,
-                           RegistrationRepository, MessageRepository)
+                           RegistrationRepository, MessageRepository, EmailLogRepository)
 from .policies import PolicyRegistry
 from .capacity import CapacityChecker
-from .events import RegistrationEventPublisher, MessageObserver
+from .events import RegistrationEventPublisher, MessageObserver, EmailObserver
+from .email import MockEmailSender
 from .services import ActivityService, RegistrationService, MessageService
 from .errors import DomainError
 
@@ -17,6 +18,7 @@ ACCOUNTS = {
     "S001": {"password": "123456", "role": "student", "name": "张三", "student_id": "S001"},
     "S002": {"password": "123456", "role": "student", "name": "李四", "student_id": "S002"},
     "S003": {"password": "123456", "role": "student", "name": "王五", "student_id": "S003"},
+    "S004": {"password": "123456", "role": "student", "name": "赵六", "student_id": "S004"},
 }
 
 
@@ -26,7 +28,12 @@ def _services():
     activity_repo = ActivityRepository(db)
     registration_repo = RegistrationRepository(db)
     message_repo = MessageRepository(db)
-    publisher = RegistrationEventPublisher([MessageObserver(message_repo)])
+    email_repo = EmailLogRepository(db)
+    email_sender = MockEmailSender(fail=current_app.config.get("EMAIL_SIMULATE_FAILURE", False))
+    publisher = RegistrationEventPublisher([
+        MessageObserver(message_repo),
+        EmailObserver(email_sender, email_repo),
+    ])
     capacity = CapacityChecker(registration_repo)
     return {
         "db": db,
@@ -34,6 +41,7 @@ def _services():
         "activity_repo": activity_repo,
         "registration_repo": registration_repo,
         "message_repo": message_repo,
+        "email_repo": email_repo,
         "capacity": capacity,
         "activity": ActivityService(activity_repo, db),
         "registration": RegistrationService(
@@ -163,7 +171,7 @@ def activity_new():
             return render_template("activity_form.html", activity=request.form.to_dict(), is_new=True)
         flash("活动创建成功", "success")
         return redirect(url_for("main.activity_detail", activity_id=activity["activity_id"]))
-    return render_template("activity_form.html", activity={"policy_type": "direct", "capacity": 30}, is_new=True)
+    return render_template("activity_form.html", activity={"policy_type": "direct", "capacity": 30, "grade_limited": 0}, is_new=True)
 
 
 @bp.route("/activities/<activity_id>/edit", methods=("GET", "POST"))

@@ -10,7 +10,7 @@
     <dt>时间</dt><dd>{{ activity.start_at|dt }}</dd>
     <dt>地点</dt><dd>{{ activity.location }}</dd>
     <dt>人数上限</dt><dd>{{ activity.capacity }}</dd>
-    <dt>报名方式</dt><dd>{{ '直接报名（自动通过）' if activity.policy_type == 'direct' else '管理员审核' }}</dd>
+    <dt>报名方式</dt><dd>{{ '直接报名（自动通过）' if activity.policy_type == 'direct' else '管理员审核' }}{% if activity.grade_limited %}；仅限大二、大三{% endif %}</dd>
     <dt>剩余名额</dt><dd>{{ activity.remaining }}</dd>
   </dl>
 

@@ -12,6 +12,7 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY=os.environ.get("CAMPUS_EVENT_SECRET_KEY") or secrets.token_hex(32),
         DATABASE=os.path.join(app.instance_path, "campusevent.db"),
+        EMAIL_SIMULATE_FAILURE=os.environ.get("CAMPUS_EVENT_EMAIL_FAILURE") == "1",
     )
     if test_config:
         app.config.update(test_config)

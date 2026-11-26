@@ -21,7 +21,7 @@
       <td>{{ a.category }}</td>
       <td class="nowrap">{{ a.start_at|dt }}</td>
       <td class="cell-truncate" title="{{ a.location }}">{{ a.location }}</td>
-      <td class="nowrap">{{ '直接报名' if a.policy_type == 'direct' else '管理员审核' }}</td>
+      <td class="nowrap">{{ '直接报名（年级限定）' if a.grade_limited else ('直接报名' if a.policy_type == 'direct' else '管理员审核') }}</td>
       <td class="nowrap">{{ a.remaining }} / {{ a.capacity }}</td>
       <td><a class="button-link" href="{{ url_for('main.activity_detail', activity_id=a.activity_id) }}">查看</a></td>
     </tr>

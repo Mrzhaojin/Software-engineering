@@ -24,6 +24,9 @@
 | 2026-11-23 / 验收缺陷修复 D-01～D-04 | 验收发现：无已审核记录、统计无参与详情、筛选按钮竖排、长文本撑破列表 | AI 分类：D-03/D-04 为 UI 缺陷；D-01/D-02 为超出 SRS 的验收增强。新增 /admin/reviewed、统计参与详情 list_reviewed/list_by_activity，修复 CSS 与截断；pytest 22 passed，类图/模型升 v1.4 | 待人工复验；复验后在验收记录填结果并重新确认结论 |
 | 2026-11-23 / 验收完成 | 学生重新验收 C1–C10、S1–S7、D-01～D-05，确认无误；要求汇总对话并检查仓库安全性 | AI 汇总验收记录与证据；22 条 pytest 通过；D-05 登录窗口居中修复；扫描仓库敏感文件并移除硬编码 Flask 密钥 | 验收通过；待云服务器部署与 baseline-v1 |
 | 2026-11-23 / 部署上线 + baseline-v1 | 学生部署 http://49.233.87.52:5001/，要求更新 README 并按指导书打 baseline-v1 | AI 更新项目/根 README、06 阶段核对、UML 索引；部署 URL 验证 200；提交后创建并推送 annotated tag baseline-v1 | 初始版本封存；后续 CR 从 baseline-v1 开分支 |
+| 2026-11-26 / CR-01/CR-02 分析 | 教师发布 CR：新增年级限定报名、新增模拟邮件通知；要求先分析、再设计、最后编码，不急着推 GitHub | AI 读取 CR，输出 09-CR影响分析、10-CR设计变更方案；从 baseline-v1 建本地 change-v2；推荐 CR-01 B（grade_limited+装饰器）、CR-02 A（EmailObserver 捕获） | 学生确认 5 项设计决策 |
+| 2026-11-26 / CR 设计 v2.0 | 按确认方案画 v2.0 类图/类模型/时序图 | AI 输出 class-diagram-v2.0（3 页）、class-model-v2.0、sequence-signup/approval-v2.0、sequence-model-v2.0；含年级拒绝、邮件失败不滚回分支 | 待 CR 验收 |
+| 2026-11-26 / CR 实现与回归 | 实现 CR-01/CR-02，只改必要位置，不推送 GitHub | AI 实现 Student.grade、Activity.grade_limited、GradeLimitedDirectPolicy、PolicyRejectedError、EmailLog/Repository/MockSender/EmailObserver、迁移与 UI；31 tests 通过（原 22 + 9 CR + 1 迁移） | 待学生 CR 验收；本地提交 change-v2 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 
@@ -47,8 +50,9 @@
 ## 三、后续事件（待办）
 
 - 云服务器部署，并在 README 补访问地址。
-- 完成 C1–C10 与 D-01～D-05 的最终复验后，打 Git 标签 baseline-v1。
-- 教师发布 CR 后：变更影响分析、从 baseline-v1 开分支实现、回归全部 C1–C10、打 change-v2。
+- baseline-v1 已打（2026-11-23）。
+- CR-01/CR-02 已在 change-v2 本地实现，31 tests；待学生验收后推送 GitHub 并打 change-v2。
+- 收尾：项目总结、答辩 PPT、3.7 可维护性指标。
 - 项目总结（5–8 页）、答辩 PPT、3.7 可维护性指标统计。
 
 ## 四、会话轮次记录（摘要，2026-11-13 ～ 2026-11-23）
@@ -83,3 +87,5 @@
 | 24 | 发现登录窗口偏左，要求居中并更新验收记录。 | 修改 .card.narrow 居中；新增 D-05 与 D0-5.png；pytest 22 passed。 |
 | 25 | 重新验收确认无误；要求把全部对话记录到 AI_DEV_LOG，并检查上传 GitHub 的文件安全性。 | 汇总轮次记录；扫描敏感文件/密钥/数据库并移除硬编码 Flask 密钥；提交推送。 |
 | 26 | 已部署 http://49.233.87.52:5001/，要求更新 README 并按指导书打 baseline-v1。 | 更新 README/阶段核对/UML 索引；验证部署页 200；22 tests 通过；提交后打 annotated tag baseline-v1 并推送。 |
+| 27 | 教师发布实验二CR；要求先做需求变更分析、再设计、最后实现，结合指导书，不急着推 GitHub。 | 读取 CR 与指导书 3.6–3.8；输出 09-CR影响分析、10-CR设计变更方案；从 baseline-v1 建本地 change-v2；推荐 CR-01 B、CR-02 A。 |
+| 28 | 确认 CR-01 B、CR-02 A；邮件日志只落库；收件人用 student_id@campus.demo；先出 v2.0 图再实现，验收后才推 GitHub/打 change-v2。 | 输出 v2.0 类图/类模型/时序图；实现 CR-01/CR-02 与迁移；31 tests 通过；待本地提交与学生 CR 验收。 |

@@ -30,23 +30,26 @@ class ActivityRepository:
         if existing is None:
             self.db.execute(
                 """INSERT INTO activities
-                   (activity_id, title, category, start_at, location, capacity, policy_type, deleted_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
+                   (activity_id, title, category, start_at, location, capacity, policy_type, grade_limited, deleted_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 (
                     activity["activity_id"], activity["title"], activity["category"],
                     activity["start_at"], activity["location"], activity["capacity"],
-                    activity["policy_type"], activity.get("deleted_at"),
+                    activity["policy_type"], activity.get("grade_limited", 0),
+                    activity.get("deleted_at"),
                 ),
             )
         else:
             self.db.execute(
                 """UPDATE activities
-                   SET title=?, category=?, start_at=?, location=?, capacity=?, policy_type=?, deleted_at=?
+                   SET title=?, category=?, start_at=?, location=?, capacity=?, policy_type=?,
+                       grade_limited=?, deleted_at=?
                    WHERE activity_id=?""",
                 (
                     activity["title"], activity["category"], activity["start_at"],
                     activity["location"], activity["capacity"], activity["policy_type"],
-                    activity.get("deleted_at"), activity["activity_id"],
+                    activity.get("grade_limited", 0), activity.get("deleted_at"),
+                    activity["activity_id"],
                 ),
             )
 
@@ -201,3 +204,30 @@ class MessageRepository:
             (message_id, student_id),
         )
         return cur.rowcount == 1
+
+class EmailLogRepository:
+    def __init__(self, db):
+        self.db = db
+
+    def find_by_event_key(self, event_key):
+        return self.db.execute(
+            "SELECT * FROM email_logs WHERE event_key = ?", (event_key,)
+        ).fetchone()
+
+    def save(self, log):
+        self.db.execute(
+            """INSERT OR IGNORE INTO email_logs
+               (log_id, registration_id, event_type, recipient, subject, content,
+                status, error, created_at, event_key)
+               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            (
+                log["log_id"], log["registration_id"], log["event_type"],
+                log["recipient"], log["subject"], log["content"], log["status"],
+                log.get("error"), log["created_at"], log["event_key"],
+            ),
+        )
+
+    def list(self):
+        return self.db.execute(
+            "SELECT * FROM email_logs ORDER BY created_at DESC"
+        ).fetchall()

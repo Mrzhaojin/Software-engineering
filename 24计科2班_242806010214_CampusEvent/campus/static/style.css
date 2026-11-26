@@ -17,6 +17,8 @@ tr.unread td { font-weight: 600; }
 form label { display: block; margin: 12px 0; }
 input, select, button { font: inherit; padding: 8px 10px; border: 1px solid #c7ceda; border-radius: 6px; }
 input, select { width: 100%; }
+.checkbox input { width: auto; }
+.checkbox { display: flex; align-items: center; gap: 8px; }
 button { cursor: pointer; background: #2f6fed; color: #fff; border-color: #2f6fed; width: auto; }
 button.danger { background: #c0392b; border-color: #c0392b; }
 .actions { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }

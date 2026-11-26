@@ -24,27 +24,32 @@
 
 | 图 | 当前版本 | 文件 | 状态 | 对应标签 |
 |---|---|---|---|---|
-| 用例图 | v1.1 | use-case-v1.1.drawio | 待学生评审 | baseline-v1（2026-11-23） |
+| 用例图 | v1.1 | use-case-v1.1.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
 | 用例图（旧版） | v1.0 | use-case-v1.0.drawio | 已归档 | — |
-| 用例说明 | v1.1 | use-case-spec-v1.1.md | 待学生评审 | — |
-| 类图 | v1.4 | class-diagram-v1.4.drawio | 已验收（2026-11-23） | baseline-v1（2026-11-23） |
+| 用例说明 | v1.1 | use-case-spec-v1.1.md | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
+| 类图 | v2.0 | class-diagram-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
+| 类图（旧版） | v1.4 | class-diagram-v1.4.drawio | 已验收（2026-11-23） | baseline-v1（2026-11-23） |
 | 类图（旧版） | v1.3 | class-diagram-v1.3.drawio | 已评审（2026-11-22） | — |
 | 类图（旧版） | v1.2 | class-diagram-v1.2.drawio | 已评审（2026-11-22） | — |
 | 类图（旧版） | v1.1 | class-diagram-v1.1.drawio | 已归档 | — |
 | 类图（旧版） | v1.0 | class-diagram-v1.0.drawio | 已归档 | — |
-| 类模型 | v1.4 | class-model-v1.4.md | 已验收（2026-11-23） | — |
+| 类模型 | v2.0 | class-model-v2.0.md | 已实现，待 CR 验收 | change-v2（待打） |
+| 类模型（旧版） | v1.4 | class-model-v1.4.md | 已验收（2026-11-23） | baseline-v1（2026-11-23） |
 | 类模型（旧版） | v1.3 | class-model-v1.3.md | 已评审（2026-11-22） | — |
 | 类模型（旧版） | v1.2 | class-model-v1.2.md | 已评审（2026-11-22） | — |
 | 类模型（旧版） | v1.1 | class-model-v1.1.md | 已归档 | — |
 | 类模型（旧版） | v1.0 | class-model-v1.0.md | 已归档 | — |
-| 时序图·报名 | v1.2 | sequence-signup-v1.2.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
-| 时序图·审批 | v1.3 | sequence-approval-v1.3.drawio | 已评审（2026-11-23） | baseline-v1（2026-11-23） |
+| 时序图·报名 | v2.0 | sequence-signup-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
+| 时序图·审批 | v2.0 | sequence-approval-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
+| 时序图·报名（旧版） | v1.2 | sequence-signup-v1.2.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
+| 时序图·审批（旧版） | v1.3 | sequence-approval-v1.3.drawio | 已评审（2026-11-23） | baseline-v1（2026-11-23） |
 | 时序图·取消 | v1.0 | sequence-cancel-v1.0.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
 | 时序图·审批（旧版） | v1.2 | sequence-approval-v1.2.drawio | 已评审（2026-11-22） | — |
 | 时序图·报名（旧版） | v1.1 | sequence-signup-v1.1.drawio | 已归档 | — |
 | 时序图·审批（旧版） | v1.1 | sequence-approval-v1.1.drawio | 已归档 | — |
 | 时序图（旧版） | v1.0 | sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio | 已归档 | — |
-| 时序模型 | v1.3 | sequence-model-v1.3.md | 已评审（2026-11-23） | — |
+| 时序模型 | v2.0 | sequence-model-v2.0.md | 已实现，待 CR 验收 | change-v2（待打） |
+| 时序模型（旧版） | v1.3 | sequence-model-v1.3.md | 已评审（2026-11-23） | — |
 | 时序模型（旧版） | v1.2 | sequence-model-v1.2.md | 已评审（2026-11-22） | — |
 | 时序模型（旧版） | v1.1 | sequence-model-v1.1.md | 已归档 | — |
 | 时序模型（旧版） | v1.0 | sequence-model-v1.0.md | 已归档 | — |
@@ -64,3 +69,5 @@
 | 2026-11-22 | 时序图/模型 | v1.2 | 重复报名 alt、名额 alt、审批 0 行 alt；新增取消 v1.0 | 审前自查 P0 | 待提交 |
 | 2026-11-22 | 类图/类模型/审批时序 | v1.3 | 拆 confirm_approval；save 只创建/简单状态；审批图 true/false | 评审建议（4.2） | f5f96d4 |
 | 2026-11-23 | 类图/类模型 | v1.4 | 验收增强：RegistrationRepository 增加 list_reviewed、list_by_activity 只读查询 | 验收 D-01/D-02 | 待提交 |
+| 2026-11-26 | 类图/类模型 | v2.0 | Student.grade、Activity.grade_limited、GradeLimitedDirectPolicy、PolicyRejectedError；EmailLog/Repository/MockSender/EmailObserver；Provider.get(activity) | CR-01/CR-02 | 待提交（change-v2 本地） |
+| 2026-11-26 | 时序图/模型 | v2.0 | 年级拒绝分支；邮件观察者、失败不滚回、event_key 去重 | CR-01/CR-02 | 待提交（change-v2 本地） |

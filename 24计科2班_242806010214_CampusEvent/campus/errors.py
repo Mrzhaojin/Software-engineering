@@ -16,3 +16,7 @@ class ConflictError(DomainError):
 
 class CapacityExceededError(DomainError):
     pass
+
+
+class PolicyRejectedError(DomainError):
+    pass
