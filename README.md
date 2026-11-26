@@ -36,7 +36,7 @@
 .
 ├── README.md          # 本文件：课程实践总览
 ├── 24计科2班_242806010214_StudyTask/    # 实验一 StudyTask
-├── 24计科2班_242806010214_CampusEvent/  # 实验二 CampusEvent（进行中）
+├── 24计科2班_242806010214_CampusEvent/  # 实验二 CampusEvent
 │   ├── README.md      # 项目说明与交付进度
 │   ├── docs/          # 需求分析、UML、评审、变更分析与测试记录
 │   └── tests/         # pytest 自动化测试
