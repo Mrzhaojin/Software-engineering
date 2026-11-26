@@ -27,6 +27,7 @@
 | 2026-11-26 / CR-01/CR-02 分析 | 教师发布 CR：新增年级限定报名、新增模拟邮件通知；要求先分析、再设计、最后编码，不急着推 GitHub | AI 读取 CR，输出 09-CR影响分析、10-CR设计变更方案；从 baseline-v1 建本地 change-v2；推荐 CR-01 B（grade_limited+装饰器）、CR-02 A（EmailObserver 捕获） | 学生确认 5 项设计决策 |
 | 2026-11-26 / CR 设计 v2.0 | 按确认方案画 v2.0 类图/类模型/时序图 | AI 输出 class-diagram-v2.0（3 页）、class-model-v2.0、sequence-signup/approval-v2.0、sequence-model-v2.0；含年级拒绝、邮件失败不滚回分支 | 待 CR 验收 |
 | 2026-11-26 / CR 实现与回归 | 实现 CR-01/CR-02，只改必要位置，不推送 GitHub | AI 实现 Student.grade、Activity.grade_limited、GradeLimitedDirectPolicy、PolicyRejectedError、EmailLog/Repository/MockSender/EmailObserver、迁移与 UI；31 tests 通过（原 22 + 9 CR + 1 迁移） | 待学生 CR 验收；本地提交 change-v2 |
+| 2026-11-26 / CR 验收 + change-v2 | 学生本地完整验收 CR-01/CR-02 与原 C1–C10，全部通过；截图本人留档不提交；要求完善验收记录并推送/打标签 | AI 填写 11-CR验收记录；更新 README/UML/06/AI log；提交后推送 change-v2 分支与 annotated tag | change-v2 已打标签；云服务器更新由学生后续完成 |
 
 ## 二、关键设计决策：Q-01～Q-10（2026-11-22）
 
@@ -49,13 +50,11 @@
 
 ## 三、后续事件（待办）
 
-- 云服务器部署，并在 README 补访问地址。
-- baseline-v1 已打（2026-11-23）。
-- CR-01/CR-02 已在 change-v2 本地实现，31 tests；待学生验收后推送 GitHub 并打 change-v2。
-- 收尾：项目总结、答辩 PPT、3.7 可维护性指标。
-- 项目总结（5–8 页）、答辩 PPT、3.7 可维护性指标统计。
+- baseline-v1 已部署并打标签（2026-11-23）；change-v2 已验收、推送并打标签（2026-11-26）。
+- change-v2 的云服务器更新由学生后续完成（更新前备份数据库，启动时自动迁移）。
+- 收尾：项目总结（5–8 页）、答辩 PPT、3.7 可维护性指标统计。
 
-## 四、会话轮次记录（摘要，2026-11-13 ～ 2026-11-23）
+## 四、会话轮次记录（摘要，2026-11-13 ～ 2026-11-26）
 
 > 说明：按会话轮次记录用户请求/决定与 AI 的产出/操作，保留关键原话要点；不记录内部思考。完整证据以各轮产物、验收记录与 Git 提交为准。
 
@@ -89,3 +88,4 @@
 | 26 | 已部署 http://49.233.87.52:5001/，要求更新 README 并按指导书打 baseline-v1。 | 更新 README/阶段核对/UML 索引；验证部署页 200；22 tests 通过；提交后打 annotated tag baseline-v1 并推送。 |
 | 27 | 教师发布实验二CR；要求先做需求变更分析、再设计、最后实现，结合指导书，不急着推 GitHub。 | 读取 CR 与指导书 3.6–3.8；输出 09-CR影响分析、10-CR设计变更方案；从 baseline-v1 建本地 change-v2；推荐 CR-01 B、CR-02 A。 |
 | 28 | 确认 CR-01 B、CR-02 A；邮件日志只落库；收件人用 student_id@campus.demo；先出 v2.0 图再实现，验收后才推 GitHub/打 change-v2。 | 输出 v2.0 类图/类模型/时序图；实现 CR-01/CR-02 与迁移；31 tests 通过；待本地提交与学生 CR 验收。 |
+| 29 | 学生本地验收 CR-01/CR-02 与原 C1–C10，全部通过；截图人工核验但本人时间原因不提交；要求完善 11-CR验收记录、推送 change-v2 并打标签；部署自行更新。 | 填写 CR 验收记录；更新 README/UML/06/AI log；推送 change-v2 分支并打 annotated tag change-v2。 |

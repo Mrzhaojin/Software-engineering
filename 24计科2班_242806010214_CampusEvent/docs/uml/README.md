@@ -27,20 +27,20 @@
 | 用例图 | v1.1 | use-case-v1.1.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
 | 用例图（旧版） | v1.0 | use-case-v1.0.drawio | 已归档 | — |
 | 用例说明 | v1.1 | use-case-spec-v1.1.md | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
-| 类图 | v2.0 | class-diagram-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
+| 类图 | v2.0 | class-diagram-v2.0.drawio | 已验收（2026-11-26） | change-v2（2026-11-26） |
 | 类图（旧版） | v1.4 | class-diagram-v1.4.drawio | 已验收（2026-11-23） | baseline-v1（2026-11-23） |
 | 类图（旧版） | v1.3 | class-diagram-v1.3.drawio | 已评审（2026-11-22） | — |
 | 类图（旧版） | v1.2 | class-diagram-v1.2.drawio | 已评审（2026-11-22） | — |
 | 类图（旧版） | v1.1 | class-diagram-v1.1.drawio | 已归档 | — |
 | 类图（旧版） | v1.0 | class-diagram-v1.0.drawio | 已归档 | — |
-| 类模型 | v2.0 | class-model-v2.0.md | 已实现，待 CR 验收 | change-v2（待打） |
+| 类模型 | v2.0 | class-model-v2.0.md | 已验收（2026-11-26） | change-v2（2026-11-26） |
 | 类模型（旧版） | v1.4 | class-model-v1.4.md | 已验收（2026-11-23） | baseline-v1（2026-11-23） |
 | 类模型（旧版） | v1.3 | class-model-v1.3.md | 已评审（2026-11-22） | — |
 | 类模型（旧版） | v1.2 | class-model-v1.2.md | 已评审（2026-11-22） | — |
 | 类模型（旧版） | v1.1 | class-model-v1.1.md | 已归档 | — |
 | 类模型（旧版） | v1.0 | class-model-v1.0.md | 已归档 | — |
-| 时序图·报名 | v2.0 | sequence-signup-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
-| 时序图·审批 | v2.0 | sequence-approval-v2.0.drawio | 已实现，待 CR 验收 | change-v2（待打） |
+| 时序图·报名 | v2.0 | sequence-signup-v2.0.drawio | 已验收（2026-11-26） | change-v2（2026-11-26） |
+| 时序图·审批 | v2.0 | sequence-approval-v2.0.drawio | 已验收（2026-11-26） | change-v2（2026-11-26） |
 | 时序图·报名（旧版） | v1.2 | sequence-signup-v1.2.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
 | 时序图·审批（旧版） | v1.3 | sequence-approval-v1.3.drawio | 已评审（2026-11-23） | baseline-v1（2026-11-23） |
 | 时序图·取消 | v1.0 | sequence-cancel-v1.0.drawio | 已评审（2026-11-22） | baseline-v1（2026-11-23） |
@@ -48,7 +48,7 @@
 | 时序图·报名（旧版） | v1.1 | sequence-signup-v1.1.drawio | 已归档 | — |
 | 时序图·审批（旧版） | v1.1 | sequence-approval-v1.1.drawio | 已归档 | — |
 | 时序图（旧版） | v1.0 | sequence-signup-v1.0.drawio、sequence-approval-v1.0.drawio | 已归档 | — |
-| 时序模型 | v2.0 | sequence-model-v2.0.md | 已实现，待 CR 验收 | change-v2（待打） |
+| 时序模型 | v2.0 | sequence-model-v2.0.md | 已验收（2026-11-26） | change-v2（2026-11-26） |
 | 时序模型（旧版） | v1.3 | sequence-model-v1.3.md | 已评审（2026-11-23） | — |
 | 时序模型（旧版） | v1.2 | sequence-model-v1.2.md | 已评审（2026-11-22） | — |
 | 时序模型（旧版） | v1.1 | sequence-model-v1.1.md | 已归档 | — |
